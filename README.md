@@ -1,4 +1,3 @@
-
 # BoxingHub
 
 ## Website Address: https://www.boxinghub.org
@@ -7,7 +6,7 @@
 
 #### Description: **_BoxingHub_ is dedicated to spreading boxing knowledge and developing boxing culture.**
 
-#### Author: Hongbo Wei from Guiyang, China. A software engineer who loves boxing 🥊!
+#### Author: [Hongbo Wei](github.com/hongbo-wei)
 
 ![BoxingHub](static/images/preview.png "BoxingHub")
 
@@ -46,9 +45,11 @@
 
 ##### 5. File "boxinghub.db: an SQLite3 database that records every "likes" and "loves" given by users.
 
+##### 6. File "main/management/commands/export_static.py": a management command to export the site as a static web app (see below for usage).
+
 ---
 
-#### Follow below two steps below to run the web app:
+#### Run the web app dynamically (with Django backend):
 
 1. install dependencies
     ```
@@ -66,6 +67,27 @@
     ```
     python manage.py runserver
     ```
+---
+
+### Export the site as a static web app
+
+You can export the entire site as static HTML and assets for deployment to Netlify, GitHub Pages, S3, etc.
+
+1. Run the export command:
+    ```
+    poetry run python manage.py export_static
+    ```
+    - This will create a `static_site/` directory with all HTML and static files.
+    - Use `--output-dir` to specify a different output directory.
+    - Use `--base-url https://yourdomain.com` to make all static file links absolute.
+    - Use `--skip-static` to export HTML only (no static assets).
+
+2. Deploy the contents of `static_site/` to your static hosting provider.
+
+**Troubleshooting:**
+- If you see errors about missing static files, make sure `STATIC_ROOT` is set in `settings.py` and that you have run the export command from the project root.
+- If you add new templates, update the `pages` list in `main/management/commands/export_static.py`.
+
 ---
 
 😁 **Thanks for your attention!**
