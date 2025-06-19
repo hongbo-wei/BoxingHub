@@ -8,8 +8,6 @@
 
 #### Author: [Hongbo Wei](github.com/hongbo-wei)
 
-![BoxingHub](static/images/preview.png "BoxingHub")
-
 - It is a web application based on the Django framework of Python, HTML, CSS, JavaScript and SQLite.
 - The design is responsive, and it adapts to all kinds of devices, you can view it on a laptop or a phone.
 - This project is an educational website that helps users to learn how to box.
