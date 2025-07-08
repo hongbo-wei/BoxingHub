@@ -41,13 +41,25 @@ Follow these steps to set up the web application:
 
 Put these in secret keys and tokens in a .env file
 
-1. **Install dependencies**  
+1. **Navigate to parent directory and install dependencies**  
    ```bash
-   pipenv shell
-   pipenv install
+   cd ..
+   poetry install
    ```
 
-2. **Run the server**  
+2. **Activate the poetry environment**  
+   ```bash
+   poetry env activate
+   ```
+   
+   **Copy and paste the command that returns from above to activate the virtual environment**
+
+3. **Navigate back to AI-BoxingHub directory**  
+   ```bash
+   cd AI-BoxingHub
+   ```
+
+4. **Run the server**  
    ```bash
    python manage.py runserver
    ```
