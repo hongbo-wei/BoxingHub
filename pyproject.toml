@@ -7,11 +7,19 @@ authors = [
 ]
 license = {text = "Creative Commons Attribution 4.0 International License"}
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.10,<3.13"
 dependencies = [
     "django (>=5.2,<6.0)",
     "djangorestframework (>=3.16.0,<4.0.0)",
     "django-cors-headers (>=4.7.0,<5.0.0)",
+    "inference-sdk",
+    "pillow",
+    "python-dotenv",
+    "openai-whisper",
+    "pyannote.audio",
+    "pydub",
+    "torchvision",
+    "pytz",
 ]
 
 
