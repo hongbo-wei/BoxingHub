@@ -727,8 +727,8 @@ border-radius: 50%;
 }
 
 /* Rules */
+/* Accessbility Tool: Transcribe and Diarize */
 #rules table {
-	border-collapse: collapse;
 	table-layout: auto;
 	width: 100%;
 }

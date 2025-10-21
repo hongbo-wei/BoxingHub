@@ -4,21 +4,44 @@ class BoxingChatbot:
 
     def reset(self):
         self.state = 'start'
-        self.topics = ['jab', 'cross', 'hook', 'uppercut']
+        punches = ['jab', 'cross', 'hook', 'uppercut']
+        self.topics = punches
+        defenses = ['block', 'lean back', 'parry', 'roll under', 'slip', 'step back']
         self.defenses = {
-            'jab': ['block', 'deflection and move to the side', 'lean back', 'parry', 'roll under', 'slip', 'step back'],
-            'cross': ['slip', 'block', 'parry', 'lean back', 'roll under'],
-            'hook': ['block', 'parry', 'roll under', 'slip'],
-            'uppercut': ['block', 'lean back', 'parry', 'step back']
+            'jab': defenses,
+            'cross': defenses,
+            'hook': defenses,
+            'uppercut': defenses,
         }
+        effective_level = ['Not effective', 'Risky', 'Not very effective', 'Effective', 'Very effective']
         self.feedback = {
-            'jab': {'block': 'Not very effective', 'deflection and move to the side': 'Effective', 'lean back': 'Risky', 
-                    'parry': 'Effective', 'roll under': 'Not effective', 'slip': 'Very effective', 'step back': 'Good'},
-            'cross': {'slip': 'Very effective', 'block': 'Effective', 'parry': 'Good', 'lean back': 'Risky', 'roll under': 'Not effective'},
-            'hook': {'block': 'Effective', 'parry': 'Good', 'roll under': 'Effective', 'slip': 'Risky'},
-            'uppercut': {'block': 'Effective', 'lean back': 'Risky', 'parry': 'Good', 'step back': 'Very effective'}
+            'jab': {'block': effective_level[2],
+                    'lean back': effective_level[1],
+                    'parry to deflect': effective_level[3],
+                    'roll under': effective_level[2],
+                    'slip': effective_level[4],
+                    'step back': effective_level[3]},
+            'cross': {'block': effective_level[2],
+                      'lean back': effective_level[1],
+                      'parry': effective_level[1],
+                      'roll under': effective_level[3],
+                      'slip': effective_level[4],
+                      'step back': effective_level[3]},
+            'hook': {'block': effective_level[2],
+                     'lean back': effective_level[1],
+                     'parry': effective_level[1],
+                     'roll under': effective_level[4],
+                     'slip': effective_level[0],
+                     'step back': effective_level[2]},
+            'uppercut': {'block': effective_level[3],
+                         'lean back': effective_level[3],
+                         'parry': effective_level[1],
+                         'roll under': effective_level[0],
+                         'slip': effective_level[2],
+                         'step back': effective_level[4]},
+                        
         }
-        self.counter_punches = ['jab', 'cross', 'hook', 'uppercut']
+        self.counter_punches = punches
         self.counter_punches_feedback = {
             'jab': 'Good choice! The jab is a versatile punch that can be used to keep your opponent at a distance.',
             'cross': 'Nice! The cross is a powerful punch that can be used to counter your opponent effectively.',
@@ -36,7 +59,7 @@ class BoxingChatbot:
                 return {'message': 'Choose a punch:', 'options': self.topics}
             self.topic = user_input
             self.state = 'defense_selected'
-            return {'message': f'You chose {self.topic}. Select a defense move:', 'options': self.defenses[self.topic]}
+            return {'message': f'You chose {self.topic}.<br>- Select a defense move:', 'options': self.defenses[self.topic]}
         
         if self.state == 'defense_selected':
             defense = user_input
@@ -45,7 +68,7 @@ class BoxingChatbot:
                 self.state = 'topic_selected'
                 return {'message': 'Choose a punch:', 'options': self.topics}
             self.state = 'counter_selected'
-            return {'message': f'You chose {defense}. Feedback: {feedback}. Now choose a counter punch:', 'options': self.counter_punches}
+            return {'message': f'You chose {defense}.<br>- Feedback: {feedback}.<br>Now choose a counter punch:', 'options': self.counter_punches}
         
         if self.state == 'counter_selected':
             counter_punch = user_input
@@ -54,17 +77,17 @@ class BoxingChatbot:
                 self.state = 'topic_selected'
                 return {'message': 'Choose a punch:', 'options': self.topics}
             self.state = 'end'
-            return {'message': f'You chose {counter_punch}. {feedback}\nDo you want to restart?', 'options': ['Yes', 'No']}
+            return {'message': f'You chose {counter_punch}.<br>- Feedback: {feedback}<br>Do you want to restart?', 'options': ['Yes', 'No']}
         
         if self.state == 'end':
             if user_input == 'Yes':
                 self.state = 'topic_selected'
-                return {'message': 'Conversation started. Choose a punch:', 'options': self.topics}
+                return {'message': 'Conversation started.<br>- Choose a punch:', 'options': self.topics}
             elif user_input == 'No':
                 return {'message': 'Conversation has ended.', 'options': ['Restart']}
             elif user_input == 'Restart':
                 self.state = 'topic_selected'
-                return {'message': 'Conversation restarted. Choose a punch:', 'options': self.topics}
+                return {'message': 'Conversation restarted.<br>- Choose a punch:', 'options': self.topics}
             else:
                 return {'message': 'Hi, do you want to start learning boxing?', 'options': ['Yes', 'No']}
 

@@ -39,8 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'boxerstats',
     'chatbot',
+    'computer_vision',
+    'aws_llms',
+    'nlp_app',
+    'boxerstats',
     'rest_framework',
     'corsheaders', # Django CORS Headers to allow cross-origin requests, connecting to the React frontend
 ]
@@ -63,17 +66,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
-
-CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'boxinghub.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # BASE_DIR / "templates"
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,9 +138,16 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# audio files for nlp_app
+AUDIO_URL = '/static/audio/'
+AUDIO_ROOT = os.path.join(BASE_DIR, 'static/audio')
+
+# text files for nlp_app
+TEXT_URL = '/static/text/'
+TEXT_ROOT = os.path.join(BASE_DIR, 'static/text')
