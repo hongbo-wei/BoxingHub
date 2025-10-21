@@ -32,10 +32,16 @@ def speaker_diarization(audio_file,
     load_dotenv()
     HUGGINGFACE_HUB_TOKEN = os.getenv("HUGGINGFACE_HUB_TOKEN")
     
-    pipeline = Pipeline.from_pretrained(
-        "pyannote/speaker-diarization-3.1",
-        use_auth_token=HUGGINGFACE_HUB_TOKEN
-    )
+    # Use huggingface_hub.login() instead of passing `use_auth_token` (removed)
+    try:
+        from huggingface_hub import login as hf_login
+    except Exception:
+        hf_login = None
+
+    if HUGGINGFACE_HUB_TOKEN and hf_login is not None:
+        hf_login(HUGGINGFACE_HUB_TOKEN)
+    
+    pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization-3.1")
 
     # apply pretrained pipeline on your audio file
     diarization = pipeline(audio_file)
