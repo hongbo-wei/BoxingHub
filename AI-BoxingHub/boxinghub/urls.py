@@ -24,4 +24,5 @@ urlpatterns = [
     path('aws-llms/', include('aws_llms.urls')),
     path('nlp-app/', include('nlp_app.urls')),
     # path('chatbot', include('chatbot.urls')),
+    path('api/', include('boxerstats.urls')),
 ]

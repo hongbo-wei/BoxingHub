@@ -1,2 +1,4 @@
 .env
 /back-up/aws
+__pycache__/
+/AI-BoxingHub/.env

@@ -43,7 +43,20 @@ INSTALLED_APPS = [
     'computer_vision',
     'aws_llms',
     'nlp_app',
+    'boxerstats',
+    'rest_framework',
+    'corsheaders', # Django CORS Headers to allow cross-origin requests, connecting to the React frontend
 ]
+
+# (Optional) Global DRF settings:
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # tighten later
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
