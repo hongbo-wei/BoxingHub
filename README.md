@@ -10,150 +10,102 @@
 
 #### Description
 
-**_BoxingHub_** is a comprehensive web platform designed to promote boxing knowledge and foster a deeper understanding of boxing culture through the integration of artificial intelligence technologies.
+**_BoxingHub_** is an end-to-end MSc Artificial Intelligence project and full-stack prototype that assists boxing training by combining computer vision, rule-based dialogue, speech processing, and LLM-enabled personalization.
 
 #### Author
 
 **Hongbo Wei**  
-From Guiyang, China, an AI/ML Engineer and boxer.
+AI/ML Engineer and boxer.
 
-### Overview
+### Quick project summary
 
-BoxingHub is a dynamic web application built using Django, HTML, CSS, JavaScript, and SQLite. Its design is fully responsive, offering a seamless user experience across all devices, including desktops, tablets, and mobile phones.
+- Prototype components: YOLOv8-based punch detection & classification, a rule-based BoxingChatbot for defensive/counterattack suggestions, a speech-to-text + speaker-diarisation accessibility pipeline, and LLM-generated personalized motivational prompts.
+- Model training summary: CPT on Microsoft COCO followed by SFT on several hundred manually annotated boxing frames. Training data was augmented (blurring, flipping, cropping, rotation, grayscale conversion, noise injection) to expand the dataset to thousands of frames.
+- Evaluation highlights: object detection mAP = 94.1%, F1 = 90.4% on the held-out boxing test set. STT WER = 6.9%; speaker diarisation DER = 8.33%.
+- LLM stack: experiments with Claude 3 (AWS Bedrock) and adaptation to DeepSeek‑V3.1 for local inference via Ollama.
 
-The platform serves as an educational resource for boxing enthusiasts, providing a wide range of content, including:
+### Core components & where to find them
 
-- Comprehensive boxing techniques, theories, rules, and gear recommendations.
-- Information on top boxing clubs, including addresses and contact details.
-- Interactive learning tools, such as an AI-powered boxing chatbot and punch classification feature.
-- Developer contact information is available on every page for user support and feedback.
+- Computer vision (punch detection/classification)
+  - YOLOv8-based detector, training and inference code in `computer_vision/` (see `computer_vision/views.py` for the inference endpoint and drawing utilities).
+  - Training recipe: CPT on COCO → SFT on boxing frames (augmentation pipeline included in `computer_vision` scripts).
 
-### Deployment
+- Rule-based BoxingChatbot
+  - Deterministic trainer recommending defenses and counterattacks. Implementation in `chatbot/bot.py` and web wiring in `chatbot/views.py`.
 
-BoxingHub is hosted on a scalable web service platform, integrating Cloudflare CDN for efficient content delivery and SSL certification to ensure a secure network connection.
+- Accessibility (STT + speaker diarisation)
+  - Pipeline implemented in `nlp_app/speech_transcription_diarization.py`; upload UI available at `nlp_app/templates/nlp_app/nlp_app.html`.
 
-### Installation Instructions
+- LLM integration
+  - Prompting and LLM client code for Ollama and Bedrock experiments included under the LLMs/ folder and integration scripts referenced from `aws_llms/`.
 
-#### Prerequisites: Python 3.11, macOS Sonoma 14.6.1
+### Architecture & deployment notes
 
-Follow these steps to set up the web application:
+- Full-stack prototype built with Django, HTML/CSS/JavaScript and SQLite.
+- Static frontend export and example static site available in `back-up/v0-boxinghub/` (see management command for exporting static files).
+- Current hosted static site: Google Cloud Platform; active AI model inference is prototyped in the repo and not hosted in production.
+- CI/CD: GitHub Actions workflows (check `.github/workflows/`).
 
-1. **Acquire API Keys, Access Tokens, and others**
+### Installation (short)
 
-    - Access Tokens from [Hugging Face](https://huggingface.co/)
-    - AI inference API Key from [Roboflow](https://roboflow.com/)
-    - Download and install [Ollama](https://ollama.com/) for LLMs integration, the model we are using is: `deepseek-v3.1:671b-cloud`
-    - Access Key and Access Key ID from [AWS](https://aws.amazon.com/) are **not needed** because we are using Ollama instead.
+Prereqs: Python 3.11, poetry recommended.
 
-    Put these in secret keys and tokens in a .env file
-
-2. **Navigate to parent directory and install dependencies**
+1. Install dependencies:
 
     ```bash
     poetry install
     ```
 
-3. **Activate the poetry environment**
+2. Activate the virtual environment (copy the printed command):
 
     ```bash
     poetry env activate
     ```
 
-    **Copy and paste the command that returns from above to activate the virtual environment**
+3. Add secrets (create a `.env` with API keys):
 
-4. **Run the server**
+    **needed**
+    - [Roboflow](https://roboflow.com/) / inference API = G5Ul0oVW1OgePLnFiYLU
+    - [Ollama](https://ollama.com/)  / local LLM configuration if used
+
+    **not needed**
+    - Access Tokens from [Hugging Face](https://huggingface.co/)
+    - Access Key and Access Key ID from [AWS](https://aws.amazon.com/)
+
+4. Run the server:
 
     ```bash
     python manage.py runserver
     ```
 
-### Folder Structure and File Descriptions
+### Reproducible training & evaluation notes
 
-#### 1. **Web Application**
+- Pretraining/fine-tuning: CPT on Microsoft COCO followed by SFT using manually labelled boxing frames.
+- Augmentations used: random blur, horizontal flip, random crop, rotation, grayscale conversion, and Gaussian/salt-and-pepper noise injection to increase robustness to real-world capture conditions.
+- Reported metrics (held-out test set used for evaluation):
+  - mAP: 94.1%
+  - F1: 90.4%
 
-- Contains the core Django framework files for building the website's structure and functionality.
+Accessibility metrics:
 
-#### 2. **Computer Vision**
+- STT WER: 6.9%
+- Speaker diarisation DER: 8.33%
 
-- Includes the components responsible for boxing punch classification using advanced computer vision models.
-- **Images for testing can be find in static/images/computer-vision folder.**
+### Files & pointers
 
-#### 3. **Chatbot**
-
-- Houses the rule-based chatbot files designed to provide interactive learning experiences for users.
-
-#### 4. **LLMs**
-
-- Contains scripts and configurations for integrating Ollama (instead of AWS Bedrock) with BoxingHub to utilize Large Language Models (LLMs) for generating personalized affirmations and enhancing user engagement. This includes API handling, prompt management, and response parsing.
-
-#### 5. **NLP App**
-
-- Includes files and modules related to Natural Language Processing (NLP) functionalities used within the BoxingHub platform. This encompasses scripts for chatbot interaction, text analysis, and other NLP-driven features that enhance user interaction and provide educational content dynamically.
-- **Audio files for testing can be find in static/audio folder.**
-
-#### 6. **Pipfile and Pipfile.lock**
-
-- Define the virtual environment settings and dependencies required for the application, ensuring compatibility and reproducibility.
-
-#### 7. **Static Folder**
-
-- Contains all static assets like CSS, JavaScript, fonts, and images to enhance the website's visual design and responsiveness.
-
-- **bootstrap/**: Controls the aesthetic elements of the web application.
-- **css/**: Manages styles related to color, layout, and responsiveness.
-- **fonts/**: Defines the typography used across the platform.
-- **images/**: Stores all images used, such as logos, backgrounds, and illustrative content.
-- **js/**: Handles dynamic behaviors and interactions, such as scroll effects and user engagement features.
-
-#### 8. **Templates Folder**
-
-Contains HTML files that dictate the layout and structure of each webpage.
-
-- **base.html**  
-  The foundational layout template from which all other pages are extended.
-- **index.html**  
-  Serves as the homepage, introducing BoxingHub's mission and content.
-
-- **clubs.html**  
-  Displays information about various boxing clubs.
-- **fundamentals.html**  
-  The Fundamentals page offers a comprehensive guide to boxing basics, covering key techniques, training regimens, and foundational knowledge essential for both beginners and experienced practitioners.
-- **gears.html**  
-  Describes essential boxing gear like gloves, hand wraps, and protective equipment.
-- **recovery.html**  
-  Provides guidance on recovery practices for athletes.
-- **rules.html**  
-  Outlines the fundamental rules of professional boxing.
-
-- **accessibility.html**  
-  The Accessibility page focuses on enhancing the usability of the platform for users with hearing impairments. It details the integration of advanced accessibility technologies like speech-to-text conversion and speaker diarisation, ensuring an inclusive learning environment.
-- **aws_llms.html**  
-  This page explains the integration of Large Language Models (LLMs) via Ollama (instead of AWS Bedrock) into BoxingHub. It highlights how generative AI provides tailored affirmations and contextual support, enhancing user engagement and motivation.
-- **computer-vision.html**  
-  The Computer Vision page showcases the AI-powered punch classification feature. It utilizes advanced object detection models to analyze and classify boxing punches, providing users with real-time feedback to improve their boxing techniques.
-
-- **moments.html**  
-  The Moments page is designed to capture and share memorable experiences from the BoxingHub community. It features user-generated content, including training highlights and milestone achievements, fostering a sense of community and shared learning.
+- `computer_vision/views.py` — CV inference endpoint and visualization helpers.
+- `chatbot/bot.py` — BoxingChatbot implementation.
+- `nlp_app/speech_transcription_diarization.py` — STT + diarisation prototype.
+- `back-up/v0-boxinghub/main/management/commands/export_static.py` — static export command and example static site.
+- Templates: `templates/computer-vision.html`, `chatbot/templates/chatbot.html`, `nlp_app/templates/nlp_app/nlp_app.html`.
 
 ---
 
-These descriptions provide a concise overview of each new page added to your BoxingHub project, enhancing the README.md by offering clear insights into their purpose and content.
-
-#### 9. **app.py**
-
-Contains the Django configuration settings, database connections, and route definitions for navigating the site and interacting with the database.
-
-#### 10. **boxinghub.db**
-
-An SQLite3 database that records user interactions, such as "likes" and "loves," to enhance user engagement analytics.
+😁 Thank you for your interest in BoxingHub!
 
 ---
 
-😁 **Thank you for your interest in BoxingHub!**
-
----
-
-© 2023-2049 [Hongbo Wei](https://github.com/hongbo-weia)
+© 2023-2025 Hongbo Wei — [github.com/hongbo-wei](https://github.com/hongbo-wei)
 
 [![CC BY 4.0][cc-by-image]][cc-by]
 
@@ -161,4 +113,3 @@ This work is licensed under a [Creative Commons Attribution 4.0 International Li
 
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
 [cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
-[cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
