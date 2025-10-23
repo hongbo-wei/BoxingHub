@@ -34,36 +34,38 @@ BoxingHub is hosted on a scalable web service platform, integrating Cloudflare C
 
 ### Installation Instructions
 
-_Prerequisites: Python 3.11, macOS Sonoma 14.6.1_
+#### Prerequisites: Python 3.11, macOS Sonoma 14.6.1
 
 Follow these steps to set up the web application:
 
-0. **Acquire API Keys and Access Tokens**
+1. **Acquire API Keys, Access Tokens, and others**
 
-- Access Key and Acess Key ID from [AWS](https://aws.amazon.com/), AWS_DEFAULT_REGION=us-west-2
-- Access Tokens from [Hugging Face](https://huggingface.co/)
-- AI inference API Key from [Roboflow](https://roboflow.com/)
+    - Access Tokens from [Hugging Face](https://huggingface.co/)
+    - AI inference API Key from [Roboflow](https://roboflow.com/)
+    - Download and install [Ollama](https://ollama.com/) for LLMs integration, the model we are using is: `deepseek-v3.1:671b-cloud`
+    - Access Key and Access Key ID from [AWS](https://aws.amazon.com/) are **not needed** because we are using Ollama instead.
 
-Put these in secret keys and tokens in a .env file
+    Put these in secret keys and tokens in a .env file
 
-1. **Navigate to parent directory and install dependencies**
+2. **Navigate to parent directory and install dependencies**
 
-   ```bash
-   poetry install
-   ```
+    ```bash
+    poetry install
+    ```
 
-2. **Activate the poetry environment**
+3. **Activate the poetry environment**
 
-   ```bash
-   poetry env activate
-   ```
+    ```bash
+    poetry env activate
+    ```
 
-   **Copy and paste the command that returns from above to activate the virtual environment**
+    **Copy and paste the command that returns from above to activate the virtual environment**
 
-3. **Run the server**
-   ```bash
-   python manage.py runserver
-   ```
+4. **Run the server**
+
+    ```bash
+    python manage.py runserver
+    ```
 
 ### Folder Structure and File Descriptions
 
@@ -80,9 +82,9 @@ Put these in secret keys and tokens in a .env file
 
 - Houses the rule-based chatbot files designed to provide interactive learning experiences for users.
 
-#### 4. **AWS LLMs**
+#### 4. **LLMs**
 
-- Contains scripts and configurations for integrating AWS Bedrock with BoxingHub to utilize Large Language Models (LLMs) for generating personalized affirmations and enhancing user engagement. This includes API handling, prompt management, and response parsing.
+- Contains scripts and configurations for integrating Ollama (instead of AWS Bedrock) with BoxingHub to utilize Large Language Models (LLMs) for generating personalized affirmations and enhancing user engagement. This includes API handling, prompt management, and response parsing.
 
 #### 5. **NLP App**
 
@@ -126,7 +128,7 @@ Contains HTML files that dictate the layout and structure of each webpage.
 - **accessibility.html**  
   The Accessibility page focuses on enhancing the usability of the platform for users with hearing impairments. It details the integration of advanced accessibility technologies like speech-to-text conversion and speaker diarisation, ensuring an inclusive learning environment.
 - **aws_llms.html**  
-  This page explains the integration of Large Language Models (LLMs) via AWS Bedrock into BoxingHub. It highlights how generative AI provides tailored affirmations and contextual support, enhancing user engagement and motivation.
+  This page explains the integration of Large Language Models (LLMs) via Ollama (instead of AWS Bedrock) into BoxingHub. It highlights how generative AI provides tailored affirmations and contextual support, enhancing user engagement and motivation.
 - **computer-vision.html**  
   The Computer Vision page showcases the AI-powered punch classification feature. It utilizes advanced object detection models to analyze and classify boxing punches, providing users with real-time feedback to improve their boxing techniques.
 
@@ -146,8 +148,6 @@ Contains the Django configuration settings, database connections, and route defi
 An SQLite3 database that records user interactions, such as "likes" and "loves," to enhance user engagement analytics.
 
 ---
-
-![BoxingHub Preview](static/images/preview.png "BoxingHub")
 
 😁 **Thank you for your interest in BoxingHub!**
 
