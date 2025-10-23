@@ -40,32 +40,32 @@ Follow these steps to set up the web application:
 
 1. **Acquire API Keys, Access Tokens, and others**
 
-- Access Tokens from [Hugging Face](https://huggingface.co/)
-- AI inference API Key from [Roboflow](https://roboflow.com/)
-- Download and install [Ollama](https://ollama.com/) for LLMs integration, the model we are using is: `deepseek-v3.1:671b-cloud`
-- Access Key and Acess Key ID from [AWS](https://aws.amazon.com/) are not needed because we are using Ollama instead.
+    - Access Tokens from [Hugging Face](https://huggingface.co/)
+    - AI inference API Key from [Roboflow](https://roboflow.com/)
+    - Download and install [Ollama](https://ollama.com/) for LLMs integration, the model we are using is: `deepseek-v3.1:671b-cloud`
+    - Access Key and Acess Key ID from [AWS](https://aws.amazon.com/) are **not needed** because we are using Ollama instead.
 
-Put these in secret keys and tokens in a .env file
+    Put these in secret keys and tokens in a .env file
 
 2. **Navigate to parent directory and install dependencies**
 
-   ```bash
-   poetry install
-   ```
+    ```bash
+    poetry install
+    ```
 
 3. **Activate the poetry environment**
 
-   ```bash
-   poetry env activate
-   ```
+    ```bash
+    poetry env activate
+    ```
 
-   **Copy and paste the command that returns from above to activate the virtual environment**
+    **Copy and paste the command that returns from above to activate the virtual environment**
 
 4. **Run the server**
 
-   ```bash
-   python manage.py runserver
-   ```
+    ```bash
+    python manage.py runserver
+    ```
 
 ### Folder Structure and File Descriptions
 
@@ -148,8 +148,6 @@ Contains the Django configuration settings, database connections, and route defi
 An SQLite3 database that records user interactions, such as "likes" and "loves," to enhance user engagement analytics.
 
 ---
-
-![BoxingHub Preview](static/images/preview.png "BoxingHub")
 
 😁 **Thank you for your interest in BoxingHub!**
 
