@@ -43,7 +43,7 @@ Follow these steps to set up the web application:
     - Access Tokens from [Hugging Face](https://huggingface.co/)
     - AI inference API Key from [Roboflow](https://roboflow.com/)
     - Download and install [Ollama](https://ollama.com/) for LLMs integration, the model we are using is: `deepseek-v3.1:671b-cloud`
-    - Access Key and Acess Key ID from [AWS](https://aws.amazon.com/) are **not needed** because we are using Ollama instead.
+    - Access Key and Access Key ID from [AWS](https://aws.amazon.com/) are **not needed** because we are using Ollama instead.
 
     Put these in secret keys and tokens in a .env file
 
