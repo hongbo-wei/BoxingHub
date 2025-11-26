@@ -83,12 +83,14 @@ def computer_vision(request):
         predictions = result["predictions"]
         # Remove dictionaries where the 'class' is 'bag'
         filtered_prediction = [prediction for prediction in predictions if prediction['class'] != 'bag']
+        resp = JsonResponse({
+            'status': 'success',
+            'classified_image': img_str,
+            'prediction': filtered_prediction[0]['class'],
+            'confidence': confidence,
+        })
 
-        return JsonResponse({'status': 'success',
-                             "classified_image": img_str,
-                             "prediction": filtered_prediction[0]['class'],
-                             "confidence": confidence,
-                            })
+        return resp
     
     elif request.method == 'POST' and 'user_input' in request.POST:
         return chatbot_view(request)
