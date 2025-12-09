@@ -1,10 +1,12 @@
 from django.urls import path
+from django.views.generic import TemplateView
 from . import views
 from .utils import update_like, update_love
 
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('dashboard/', TemplateView.as_view(template_name='dashboard/index.html'), name='dashboard'),
     path('clubs/', views.clubs, name='clubs'),
     path('fundamentals/', views.fundamentals, name='fundamentals'),
     path('gears/', views.gears, name='gears'),
