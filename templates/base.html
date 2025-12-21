@@ -79,7 +79,7 @@
                         <li class="{% if active == 'index' %}active{% endif %}"><a href="/">Home</a></li>
 
                         <li class="dropdown {% if active == 'knowledge' %}active{% endif %}">
-                            <a>Knowledge Base</a>
+                            <a>Library</a>
                             <div class="dropdown-content">
                             <a href="{% url 'fundamentals' %}">Fundamentals</a>
                             <a href="{% url 'recovery' %}">Recovery</a>
@@ -90,16 +90,16 @@
                         </li>
 
                         <li class="dropdown {% if active == 'ai-boxing' %}active{% endif %}">
-                            <a>AI & Boxing</a>
+                            <a>AI for Boxing</a>
                             <div class="dropdown-content">
-                            <a href="{% url 'computer_vision' %}">AI Inference on Boxing</a>
-                            <a href="{% url 'my_affirmations' %}">Affirmations with AWS</a>
-                            <a href="{% url 'nlp_app' %}">Accessibility: Diarise & Transcribe</a>
+                            <a href="{% url 'computer_vision' %}">AI Inference</a>
+                            <a href="{% url 'my_affirmations' %}">Affirmations</a>
+                            <a href="{% url 'nlp_app' %}">Accessibility</a>
                             </div>
                         </li>
 
                         <li class="dropdown {% if active == 'clubs & extra' %}active{% endif %}">
-                            <a>Clubs & Extra</a>
+                            <a>Clubs & More</a>
                             <div class="dropdown-content">
                             <a href="{% url 'clubs' %}">Clubs</a>
                             <a href="{% url 'moments' %}">Moments</a>

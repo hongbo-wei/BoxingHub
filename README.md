@@ -37,7 +37,7 @@ AI/ML Engineer and boxer.
   - Pipeline implemented in `nlp_app/speech_transcription_diarization.py`; upload UI available at `nlp_app/templates/nlp_app/nlp_app.html`.
 
 - LLM integration
-  - Prompting and LLM client code for Ollama and Bedrock experiments included under the LLMs/ folder and integration scripts referenced from `aws_llms/`.
+  - Prompting and LLM client code for Ollama and Bedrock experiments included under the LLMs/ folder and integration scripts referenced from `affirmations/`.
 
 ### Architecture & deployment notes
 
@@ -77,6 +77,10 @@ Prereqs: Python 3.11, poetry recommended.
     ```bash
     python manage.py runserver
     ```
+
+### LLM affirmations (local Ollama)
+
+The affirmations page uses the local Ollama server by default. Ensure Ollama is running on your machine (e.g. `ollama serve`) and the model is pulled (e.g. `ollama pull deepseek-v3.1:671b-cloud`) before opening `/affirmations/my-affirmations/`.
 
 ### Reproducible training & evaluation notes
 
