@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('computer-vision/', include('computer_vision.urls')),
-    path('aws-llms/', include('aws_llms.urls')),
+    path('affirmations/', include('affirmations.urls')),
     path('nlp-app/', include('nlp_app.urls')),
     # path('chatbot', include('chatbot.urls')),
     path('api/', include('boxerstats.urls')),

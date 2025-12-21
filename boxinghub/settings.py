@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'main',
     'chatbot',
     'computer_vision',
-    'aws_llms',
+    'affirmations',
     'nlp_app',
     'boxerstats',
     'rest_framework',

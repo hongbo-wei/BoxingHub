@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+AI Affirmations
+{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/affirmations.css' %}">
+{% endblock %}
+
+{% block body %}
+<section id="affirmations" class="section clearfix no-view secPadding" data-animation-effect="fadeIn" data-affirmation-endpoint="{% url 'affirmation_api' %}">
+	<div class="space"></div>
+	<div class="container">
+		<div class="col-md-12">
+				<h1><span>AI Affirmations</span></h1>
+				<section class="text">
+					<h3 id="affirmation">Loading...</h3>
+				</section>
+				<button id="getNewAffirmation" disabled>Another Please</button>
+		</div>
+	</div>
+</section>
+
+{% block extra_scripts %}
+<script src="{% static 'js/affirmations.js' %}" defer></script>
+{% endblock %}
+
+{% endblock %}

@@ -83,10 +83,18 @@ def computer_vision(request):
         predictions = result["predictions"]
         # Remove dictionaries where the 'class' is 'bag'
         filtered_prediction = [prediction for prediction in predictions if prediction['class'] != 'bag']
+        if filtered_prediction:
+            display_prediction = max(
+                filtered_prediction,
+                key=lambda pred: pred.get("confidence", 0.0),
+            )
+        else:
+            display_prediction = predictions[0]
+        confidence = round(display_prediction.get("confidence", 0.0), 2)
         resp = JsonResponse({
             'status': 'success',
             'classified_image': img_str,
-            'prediction': filtered_prediction[0]['class'],
+            'prediction': display_prediction.get('class', 'No object detected'),
             'confidence': confidence,
         })
 
